@@ -708,6 +708,23 @@ function submitToGoogleForms(data) {
   if (falta)  params.append('entry.1036116027', falta);
   if (elogio) params.append('entry.1270244008', elogio);
 
+  // Observações de melhoria concatenadas
+  const melhorias = [];
+  const melhoriaMap = [
+    { id: 'melhoria-txt-q3', label: 'Recepção e Ambiente' },
+    { id: 'melhoria-txt-q4', label: 'Atendimento' },
+    { id: 'melhoria-txt-q5', label: 'Qualidade do Serviço' },
+    { id: 'melhoria-txt-q6', label: 'Custo-Benefício' },
+    { id: 'melhoria-txt-q7', label: 'Tempo de Espera' },
+  ];
+  melhoriaMap.forEach(m => {
+    const el = document.getElementById(m.id);
+    if (el && el.value.trim()) {
+      melhorias.push(m.label + ': ' + el.value.trim());
+    }
+  });
+  if (melhorias.length > 0) params.append('entry.2039491086', melhorias.join(' | '));
+
   // Cadastro (preenchido depois, enviado junto)
   const nome       = document.getElementById('reg-nome').value.trim();
   const sobrenome  = document.getElementById('reg-sobrenome').value.trim();
